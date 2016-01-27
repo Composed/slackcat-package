@@ -1,23 +1,17 @@
-software_groups: &software
-  - "base_trusty"
-
 packages:
   branch_codenames:
-    master: unstable
-    production: stable
+    master: trusty-unstable
+    production: trusty-stable
 
 jobs:
   slackcat:
     builder: "make"
-    base: "ubuntu:14.04"
-    software_groups: *software
+    base: "quay.io/madebymany/build-bases:trusty"
     build_depends:
       - "golang"
-    promote_through:
-      - unstable
-      - stable
     packages:
-      - name: slackcat
+      - type: debian
+        name: slackcat
         repos:
-          - mxm-public
+          - composed-public
         target: install
